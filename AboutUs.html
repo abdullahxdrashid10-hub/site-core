@@ -1,0 +1,102 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>About Us | Premium Tiles</title> 
+    <link rel="stylesheet" href="About.css"> 
+</head> 
+<body> 
+
+    
+  <nav class="navbar navbar-dark"> 
+    <div class="logo-container"> 
+      
+<img src="Logo.png" alt="Casa Piedra Logo" class="logo-img"> 
+        <div class="logo-text"> 
+            <span>Casa Piedra</span> 
+        </div> 
+    </div>
+
+    </div> 
+        <ul class="nav-links"> 
+            <li><a href="Home.html">Home</a></li> 
+            <li><a href="AboutUs.html">About Us</a></li> 
+            <li><a href="Expert Corner.html">Expert Corner</a></li>
+            <li><a href="comparision.html">Tile Comparison</a></li> 
+            <li class="dropdown-item-container"> 
+                <a href="#" class="dropdown-icon">Products</a> 
+                <ul class="dropdown-menu-custom"> 
+                    <li><a href="Wall tiles.html">Wall Tiles</a></li> 
+                    <li><a href="Floor tiles.html">Floor Tiles</a></li> 
+                    <li><a href="Special Tiles.html">Special Tiles</a></li> 
+                    <li><a href="Tiles.html">All Products</a></li>
+                </ul> 
+            </li> 
+        </ul>
+        <div class="search-container"> 
+            <span class="search-icon"></span> 
+            <input type="text" placeholder="Type Here To Search"> 
+        </div> 
+    </nav> 
+    <section class="hero fade-in"> 
+        <img src="Logo.png" alt="Casa Piedra Hero Logo" class="hero-logo-img"> 
+        <div class="hero-text-content"> 
+            <h1>Crafting Spaces, Inspiring Living</h1>
+            <p>Your premier destination for world-class surface designs.</p> 
+        </div> 
+    </section> 
+
+
+    <main class="container"> 
+        <div class="grid"> 
+            <div class="card fade-in"> 
+                <h3>Who We Are</h3> 
+                <p>We are a passionate team of design innovators dedicated to transforming ordinary surfaces into extraordinary architectural statements. We source, curate, and deliver premium tiles that bridge the gap between structural utility and high-end interior fashion.</p> 
+            </div> 
+            
+            <div class="card fade-in"> 
+                <h3>Our Collections</h3> 
+                <p>Our catalog features a diverse range of aesthetics, from sleek ultra-modern minimalist porcelain to intricate traditional ceramics. Each piece is selected for its superior durability, flawless finish, precision cuts, and unique texture profiles.</p> 
+            </div> 
+            
+            <div class="card fade-in"> 
+                <h3>Why Choose Us</h3> 
+                <p>We combine eco-friendly manufacturing standards with cutting-edge digital printing technology. This ensures our scratch-resistant, water-impermeable tiles maintain vibrant colors and deep textures for decades under heavy foot traffic.</p> 
+            </div> 
+        </div> 
+
+        
+        <div class="grid">
+            <div class="card fade-in">
+                <h3>The Heritage</h3>
+                <p>Rooted in engineering mastery, Casa Piedra honors architectural history by blending traditional Italian stonework philosophies with modern luxury lifestyles.</p>
+            </div>
+            <div class="card fade-in">
+                <h3>The Artistry</h3>
+                <p>Every slab and tile profile in our gallery undergoes strict visual testing to guarantee deep tonal gradients and authentic tactile patterns.</p>
+            </div>
+        </div>
+
+        <section class="design-philosophy fade-in"> 
+            <h2>Our Design Philosophy</h2> 
+            <p>We believe tiles are not just flooring elements; they are the canvas of your space. Whether you are seeking bold geometric patterns to make a statement, rustic stone finishes for warmth, or large-format slabs for seamless transitions, our designs are engineered to elevate modern living.</p> 
+        </section> 
+    </main> 
+
+    
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body> 
+</html>

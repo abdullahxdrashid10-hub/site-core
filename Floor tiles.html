@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Tiles</title>
+    <link rel="stylesheet" href="Tiles.css">
+</head>
+<body>
+    <!-- B) FLOOR TILES -->
+            <div class="tile-card floor">
+                <div class="card-img"><img src="Bathroom Floor.jpg" alt="Bathroom Floor"></div>
+                <div class="card-info">
+                    <span class="tag">Floor</span>
+                    <h3>Bathroom Floor Tiles</h3>
+                    <button class="explore-btn" onclick="openExplorer('Bathroom Floor')">Explore Finishes</button>
+                </div>
+            </div>
+            <div class="tile-card floor">
+                <div class="card-img"><img src="Kitchen floor.png" alt="Kitchen Floor"></div>
+                <div class="card-info"><span class="tag">Floor</span><h3>Kitchen Floor Tiles</h3><button class="explore-btn" onclick="openExplorer('Kitchen Floor')">Explore Finishes</button></div>
+            </div>
+            <div class="tile-card floor">
+                <div class="card-img"><img src="Outdoor Tile floor.png" alt="Outdoor Floor"></div>
+                <div class="card-info"><span class="tag">Floor</span><h3>Outdoor Floor Tiles</h3><button class="explore-btn" onclick="openExplorer('Outdoor Floor')">Explore Finishes</button></div>
+            </div>
+            <div class="tile-card floor">
+                <div class="card-img"><img src="Anti static.jpg" alt="Living Room Floor"></div>
+                <div class="card-info"><span class="tag">Floor</span><h3>Living Room Tiles</h3><button class="explore-btn" onclick="openExplorer('Living Room Floor')">Explore Finishes</button></div>
+            </div>
+            <div class="tile-card floor">
+                <div class="card-img"><img src="Deep sleep.png" alt="Bedroom Floor"></div>
+                <div class="card-info"><span class="tag">Floor</span><h3>Bedroom Tiles</h3><button class="explore-btn" onclick="openExplorer('Bedroom Floor')">Explore Finishes</button></div>
+            </div>
+            <div class="tile-card floor">
+                <div class="card-img"><img src="Living floor.jpg" alt=""></div>
+                <div class="card-info"><span class="tag">Floor</span><h3>Commercial Spaces</h3><button class="explore-btn" onclick="openExplorer('Commercial Floor')">Explore Finishes</button></div>
+            </div>
+    
+    
+    
+    <div class="modal-overlay" id="explorerModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeExplorer()">&times;</span>
+            <h2 id="modalTitle">Explore Finishes</h2>
+            <div id="previewBox" class="finish-preview"></div>
+            <div class="selection-group">
+                <span class="selection-label">Select Color Shade</span>
+                <div class="option-grid">
+                    <div class="color-dot active" style="background: #ffffff;" onclick="updatePreview('color', '#ffffff', this)"></div>
+                    <div class="color-dot" style="background: #dcdde1;" onclick="updatePreview('color', '#dcdde1', this)"></div>
+                    <div class="color-dot" style="background: #b2bec3;" onclick="updatePreview('color', '#b2bec3', this)"></div>
+                    <div class="color-dot" style="background: #636e72;" onclick="updatePreview('color', '#636e72', this)"></div>
+                    <div class="color-dot" style="background: #2d3436;" onclick="updatePreview('color', '#2d3436', this)"></div>
+                </div>
+            </div>
+            <div class="selection-group">
+                <span class="selection-label">Select Texture</span>
+                <div class="option-grid">
+                    <button class="texture-btn active" onclick="updatePreview('texture', 'glossy', this)">Glossy</button>
+                    <button class="texture-btn" onclick="updatePreview('texture', 'matte', this)">Matte</button>
+                    <button class="texture-btn" onclick="updatePreview('texture', 'grain', this)">Grained</button>
+                </div>
+            </div>
+            <button class="explore-btn" onclick="closeExplorer()">Save Selection</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('explorerModal');
+        const previewBox = document.getElementById('previewBox');
+
+        function openExplorer(name) {
+            document.getElementById('modalTitle').innerText = name + " Finishes";
+            modal.style.display = 'flex';
+        }
+
+        function closeExplorer() {
+            modal.style.display = 'none';
+        }
+
+        function updatePreview(type, value, element) {
+            const siblings = element.parentElement.children;
+            for (let sib of siblings) sib.classList.remove('active');
+            element.classList.add('active');
+
+            if (type === 'color') {
+                previewBox.style.backgroundColor = value;
+            }
+            if (type === 'texture') {
+                previewBox.style.backgroundImage = 'none';
+                if (value === 'glossy') {
+                    previewBox.style.boxShadow = 'inset 0 0 50px rgba(255,255,255,0.9)';
+                    previewBox.style.filter = 'contrast(1.1)';
+                } else if (value === 'matte') {
+                    previewBox.style.boxShadow = 'none';
+                    previewBox.style.filter = 'none';
+                } else if (value === 'grain') {
+                    previewBox.style.backgroundImage = 'url("https://transparenttextures.com")';
+                    previewBox.style.boxShadow = 'none';
+                }
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) closeExplorer();
+        }
+    </script>
+
+</body>
+</html>

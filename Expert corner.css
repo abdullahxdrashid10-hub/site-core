@@ -1,0 +1,321 @@
+/* ========================================================
+   ROOT VARIABLES & GLOBAL RESET
+   ======================================================== */
+:root {
+  --bg-dark: #0f0f0f;
+  --accent-blue: #00bcd4;
+  --text-white: #ffffff;
+  --text-gray: #555555;
+  --text-muted: #b0b0b0;
+  --light-bg: #fcfcfc;
+  --gold-brand: #daa520;
+  --orange: #000000;
+  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-stack);
+  background-color: #f8f9fa;
+  color: var(--text-gray);
+  line-height: 1.6;
+}
+
+input, select, textarea, button, h1, h2, h3, h4, h5, h6, a, span, p, li {
+  font-family: var(--font-stack) !important;
+}
+
+/* ========================================================
+   RIPPLE REDIRECT OVERLAY
+   ======================================================== */
+#ripple-overlay {
+  position: fixed;
+  border-radius: 50%;
+  background: #ff7b00;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0;
+  width: 0; height: 0;
+}
+
+#page-curtain {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+/* ========================================================
+   NAVIGATION BAR
+   ======================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.logo-container { display: flex; align-items: center; gap: 12px; }
+
+.logo-img {
+  height: 50px; width: 50px;
+  border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--gold-brand);
+}
+
+.logo-text { font-size: 22px; font-weight: 700; color: var(--gold-brand); letter-spacing: 1px; }
+
+.logo-text span {
+  display: block; font-size: 10px; color: var(--gold-brand);
+  letter-spacing: 2px; text-transform: uppercase; margin-top: -2px;
+}
+
+.nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+.nav-links li { margin: 0 15px; position: relative; }
+
+.nav-links a {
+  text-decoration: none; color: #555555; font-size: 13px; font-weight: 500;
+  text-transform: uppercase; transition: color 0.3s ease;
+  display: block; padding: 10px 0; position: relative;
+}
+
+.nav-links a.active, .nav-links a:hover { color: var(--gold-brand); }
+
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 50%;
+  width: 0; height: 2px; background-color: var(--gold-brand);
+  transition: width 0.3s cubic-bezier(0.25,1,0.5,1), left 0.3s cubic-bezier(0.25,1,0.5,1);
+}
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; left: 0; }
+
+.dropdown-icon::after { content: ' ▼'; font-size: 8px; vertical-align: middle; }
+
+.search-container {
+  display: flex; align-items: center;
+  border: 1px solid #add8e6; border-radius: 20px;
+  padding: 5px 15px; width: 180px; background-color: #ffffff;
+  transition: width 0.4s cubic-bezier(0.25,1,0.5,1), border-color 0.3s;
+}
+.search-container:focus-within {
+  width: 260px; border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(0,188,212,0.1);
+}
+.search-container input { border: none; outline: none; font-size: 12px; flex-grow: 1; color: #333333; background: transparent; }
+.search-container input::placeholder { color: #aaaaaa; }
+.search-icon { color: var(--accent-blue); margin-right: 5px; font-size: 16px; }
+
+.dropdown-item-container { position: relative; }
+.dropdown-menu-custom {
+  display: none; position: absolute; top: 100%; left: 0;
+  background-color: #ffffff; min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.1); border-radius: 4px;
+  padding: 10px 0; list-style: none; z-index: 1000; margin: 0;
+}
+.dropdown-menu-custom li { margin: 0 !important; width: 100%; }
+.dropdown-menu-custom li a { color: #333333 !important; padding: 10px 20px !important; font-size: 12px; text-transform: capitalize; transition: background-color 0.2s ease, color 0.2s ease; }
+.dropdown-menu-custom li a:hover { background-color: #f5f5f5; color: var(--accent-blue) !important; }
+.dropdown-item-container:hover .dropdown-menu-custom { display: block; }
+
+/* ========================================================
+   SECTIONS
+   ======================================================== */
+section {
+  padding: 70px 8%;
+  background: #f8f9fa;
+}
+
+.section-title { text-align: center; margin-bottom: 50px; }
+.section-title h2 { font-size: 42px; color: #222; margin-bottom: 10px; font-weight: 700; }
+.section-title p { color: #666; font-size: 18px; }
+
+/* ========================================================
+   EXPERT CORNER CARDS
+   ======================================================== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: 0.4s ease;
+}
+.card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+
+.card img { width: 100%; height: 240px; object-fit: cover; }
+
+.card-content { padding: 25px; text-align: center; }
+.card-content h3 { font-size: 24px; color: var(--orange); margin-bottom: 12px; font-weight: 600; }
+.card-content p { color: #555; line-height: 1.7; font-size: 15px; margin-bottom: 20px; }
+
+/* ========================================================
+   OPTION C — SPLIT TEXT FLIP EXPLORE BUTTON
+   ======================================================== */
+.explore-btn {
+  position: relative;
+  overflow: hidden;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 13px 32px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+  display: inline-block;
+}
+
+.explore-btn:hover {
+  transform: scale(1.05);
+  background: #e06a00;
+}
+
+/* The inner wrapper clips the two text lines */
+.btn-inner {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 18px;        /* shows exactly one line at a time */
+  line-height: 18px;
+}
+
+.btn-top, .btn-bot {
+  display: block;
+  transition: transform 0.38s cubic-bezier(0.76, 0, 0.24, 1);
+  white-space: nowrap;
+}
+
+/* On hover: both lines slide up — top exits, bot takes its place */
+.explore-btn:hover .btn-top { transform: translateY(-100%); }
+.explore-btn:hover .btn-bot { transform: translateY(-100%); }
+
+/* ========================================================
+   TIPS / CALCULATOR / MAINTENANCE BOX
+   ======================================================== */
+.tips {
+  background: #fff;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+.tips ul { list-style: none; padding: 0; }
+.tips ul li {
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 18px;
+  font-size: 17px;
+  color: #444;
+}
+.tips ul li::before {
+  content: "✔";
+  position: absolute; left: 0; top: 0;
+  color: var(--orange); font-weight: bold; font-size: 18px;
+}
+
+/* ========================================================
+   INSTALLATION SMALL CARDS + DARK OVERLAY
+   ======================================================== */
+.small-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: 0.4s ease;
+  position: relative;
+  cursor: pointer;
+}
+.small-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+
+.small-card img {
+  width: 100%; height: 230px; object-fit: cover; display: block;
+  transition: transform 0.5s ease;
+}
+.small-card:hover img { transform: scale(1.04); }
+
+.small-content { padding: 25px; text-align: center; }
+.small-content h3 { color: var(--orange); font-size: 22px; margin-bottom: 10px; }
+.small-content p { color: #666; line-height: 1.7; font-size: 15px; margin-bottom: 18px; }
+
+/* READ MORE BUTTON */
+.read-more-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange); color: #fff;
+  border: none; border-radius: 50px;
+  padding: 10px 22px; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.5px; cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.read-more-btn:hover { background: #e06a00; transform: scale(1.04); }
+.read-more-btn svg { transition: transform 0.25s ease; }
+.read-more-btn:hover svg { transform: translateX(3px); }
+
+/* DARK OVERLAY */
+.overlay {
+  position: absolute; inset: 0;
+  background: rgba(10, 10, 10, 0.93);
+  border-radius: 18px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 32px 28px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+  z-index: 10;
+}
+.overlay.active { opacity: 1; pointer-events: all; }
+
+.overlay-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 10px;
+}
+.overlay h3 { font-size: 20px; font-weight: 700; color: #ffffff; margin-bottom: 14px; line-height: 1.35; }
+.overlay p { font-size: 13.5px; color: rgba(255,255,255,0.72); line-height: 1.85; margin-bottom: 22px; }
+
+.overlay-divider {
+  width: 36px; height: 2px;
+  background: var(--orange); border-radius: 2px; margin-bottom: 18px;
+}
+
+.close-btn {
+  position: absolute; top: 18px; right: 20px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; width: 34px; height: 34px;
+  border-radius: 50%; font-size: 18px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s ease;
+}
+.close-btn:hover { background: rgba(255,123,0,0.6); }
+
+.read-time { display: inline-block; font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 4px; }
+
+/* ========================================================
+   RESPONSIVE
+   ======================================================== */
+@media (max-width: 768px) {
+  section { padding: 50px 5%; }
+  .section-title h2 { font-size: 32px; }
+  .section-title p { font-size: 16px; }
+  .card-content h3 { font-size: 22px; }
+  .tips { padding: 25px; }
+  .navbar { padding: 15px 20px; }
+  .nav-links { display: none; }
+}

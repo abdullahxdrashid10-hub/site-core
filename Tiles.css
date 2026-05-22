@@ -1,0 +1,709 @@
+:root { 
+    --primary: #2d3436; 
+    --accent: #4b7bec; 
+    --bg: #f5f6fa; 
+    --white: #ffffff;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; 
+}
+
+body { 
+    background: var(--bg); 
+    color: var(--primary); 
+    overflow-x: hidden;
+}
+
+nav { 
+    padding: 2rem 1rem; 
+    text-align: center; 
+    background: white; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+
+.logo { 
+    font-weight: 700; 
+    font-size: 1.5rem; 
+    letter-spacing: 4px; 
+    margin-bottom: 1.5rem; 
+}
+
+/* Category Filter Buttons */
+.filter-btn { 
+    padding: 0.6rem 1.2rem; 
+    margin: 5px; 
+    border: 2px solid var(--primary); 
+    background: transparent; 
+    cursor: pointer; 
+    border-radius: 50px; 
+    font-weight: 500; 
+    transition: 0.3s ease; 
+}
+
+.filter-btn.active, .filter-btn:hover { 
+    background: var(--primary); 
+    color: white; 
+}
+
+
+.container { 
+    max-width: 1200px; 
+    margin: 3rem auto; 
+    padding: 0 1.5rem; 
+}
+
+.tile-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 2.5rem; 
+}
+
+/* --- PRODUCT CARD STYLING & ANIMATIONS --- */
+.tile-card { 
+    background: white; 
+    border-radius: 15px; 
+    overflow: hidden; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: entranceEffect 0.7s forwards ease-out;
+}
+
+@keyframes entranceEffect {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tile-card:hover { 
+    transform: translateY(-12px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12); 
+}
+
+/* UNIFORM IMAGE SIZING */
+.card-img { 
+    height: 220px; 
+    background: #f1f2f6; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden;
+    font-size: 3.5rem;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.6s ease;
+}
+
+.tile-card:hover .card-img img {
+    transform: scale(1.15);
+}
+
+.card-info { padding: 1.5rem; }
+
+.tag { 
+    font-size: 0.65rem; 
+    padding: 4px 10px; 
+    background: #e1eaf3; 
+    border-radius: 4px; 
+    color: var(--accent); 
+    text-transform: uppercase; 
+    font-weight: 700; 
+}
+
+h3 { 
+    font-size: 1.2rem; 
+    margin: 0.8rem 0; 
+}
+
+.explore-btn { 
+    width: 100%; 
+    padding: 0.9rem; 
+    border: none; 
+    background: var(--primary); 
+    color: white; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: background 0.3s ease;
+}
+
+.explore-btn:hover { 
+    background: var(--accent); 
+}
+
+/* --- EXPLORER MODAL STYLES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+    animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.finish-preview {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    background-color: #ffffff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    border: 1px solid #eee;
+}
+
+.selection-group { margin-bottom: 1.5rem; text-align: left; }
+.selection-label { font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 10px; color: #666; text-transform: uppercase; }
+
+.option-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.color-dot {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid #eee;
+    transition: 0.2s;
+}
+.color-dot.active { border-color: var(--accent); transform: scale(1.1); }
+
+.texture-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.texture-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+
+
+
+/* ========================================================
+   1. ROOT VARIABLES & GLOBAL RESET
+   ======================================================== */
+:root { 
+    --bg-dark: #0f0f0f; 
+    --accent-blue: #00bcd4;     /* Uniform cyan/blue brand accent */
+    --text-white: #ffffff; 
+    --text-gray: #555555;       /* Consistent gray body typography scale */
+    --text-muted: #b0b0b0; 
+    --light-bg: #fcfcfc;        /* Soft studio white texture background profile */
+    --gold-brand: #daa520;      /* Goldenrod accent hex code */
+    
+    /* UNIFIED FONT STACK FROM YOUR SECOND CODE */
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+} 
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+} 
+
+body { 
+    font-family: var(--font-stack); 
+    background-color: var(--light-bg); 
+    color: var(--text-gray); 
+    line-height: 1.6; 
+} 
+
+/* Forcing all text input fields and headings to respect the font stack */
+input, select, textarea, button, h1, h2, h3, h4, h5, h6, a, span, p, li {
+    font-family: var(--font-stack) !important;
+}
+
+/* ========================================================
+   2. NAVIGATION BAR CONTAINER COMPONENT
+   ======================================================== */
+.navbar { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 15px 40px; 
+    position: sticky; /* Keeps navbar fixed at top while scrolling */
+    top: 0;
+    z-index: 10000;
+    /* Glassmorphic ultra-luxury translucent effect */
+    background-color: rgba(255, 255, 255, 0.82); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); 
+} 
+
+/* Logo Wrapper Alignment Area */
+.logo-container { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+} 
+
+.logo-img { 
+    height: 50px; 
+    width: 50px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid var(--gold-brand); 
+} 
+
+.logo-text { 
+    font-size: 22px; 
+    font-weight: 700; 
+    color: var(--gold-brand); 
+    letter-spacing: 1px; 
+} 
+
+.logo-text span { 
+    display: block; 
+    font-size: 10px; 
+    color: var(--gold-brand); 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    margin-top: -2px; 
+} 
+
+/* Navigation Hyperlink Items Menu */
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+    align-items: center; 
+} 
+
+.nav-links li { 
+    margin: 0 15px; 
+    position: relative; 
+} 
+
+.nav-links a { 
+    text-decoration: none; 
+    color: #555555; 
+    font-size: 13px; 
+    font-weight: 500; 
+    text-transform: uppercase; 
+    transition: color 0.3s ease; 
+    display: block; 
+    padding: 10px 0; 
+    position: relative; /* Set anchor boundary for line animations */
+} 
+
+/* Clean hover transitions */
+.nav-links a.active, 
+.nav-links a:hover { 
+    color: var(--gold-brand); 
+} 
+
+/* Elegant line growing expansion logic on link hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--gold-brand);
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), left 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.dropdown-icon::after { 
+    content: ' ▼'; 
+    font-size: 8px; 
+    vertical-align: middle; 
+} 
+
+/* Right Side Search Entry Frame */
+.search-container { 
+    display: flex; 
+    align-items: center; 
+    border: 1px solid #add8e6; 
+    border-radius: 20px; 
+    padding: 5px 15px; 
+    width: 180px; /* Smaller footprint at rest */
+    background-color: #ffffff; 
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
+} 
+
+/* Dynamic expand scaling animation field when active */
+.search-container:focus-within {
+    width: 260px;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1);
+}
+
+.search-container input { 
+    border: none; 
+    outline: none; 
+    font-size: 12px; 
+    flex-grow: 1; 
+    color: #333333; 
+    background: transparent;
+} 
+
+.search-container input::placeholder { 
+    color: #aaaaaa; 
+} 
+
+.search-icon { 
+    color: var(--accent-blue); 
+    margin-right: 5px; 
+    font-size: 16px; 
+} 
+
+/* Dropdown Menu Layer Popups Toggle */
+.dropdown-item-container { 
+    position: relative; 
+} 
+
+.dropdown-menu-custom { 
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background-color: #ffffff; 
+    min-width: 180px; 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); 
+    border-radius: 4px; 
+    padding: 10px 0; 
+    list-style: none; 
+    z-index: 1000; 
+    margin: 0; 
+} 
+
+.dropdown-menu-custom li { 
+    margin: 0 !important; 
+    width: 100%; 
+} 
+
+.dropdown-menu-custom li a { 
+    color: #333333 !important; 
+    padding: 10px 20px !important; 
+    font-size: 12px; 
+    text-transform: capitalize; 
+    transition: background-color 0.2s ease, color 0.2s ease; 
+} 
+
+.dropdown-menu-custom li a:hover { 
+    background-color: #f5f5f5; 
+    color: var(--accent-blue) !important; 
+} 
+
+.dropdown-item-container:hover .dropdown-menu-custom { 
+    display: block; 
+} 
+
+/* ========================================================
+   3. HERO CAROUSEL COMPONENT
+   ======================================================== */
+.carousel-wrapper { 
+    max-width: 1200px; 
+    margin: 40px auto; 
+    padding: 0 20px; 
+} 
+
+.carousel { 
+    border-radius: 10px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+} 
+
+.custom-carousel-img { 
+    display: block; 
+    width: 100%; 
+    height: 420px; 
+    object-fit: cover; 
+    object-position: center; 
+} 
+
+.carousel-control-prev-icon, 
+.carousel-control-next-icon { 
+    width: 2rem; 
+    height: 2rem; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    border-radius: 50%; 
+    background-size: 55%; 
+} 
+
+/* ========================================================
+   4. PRODUCT SELECTION GRID LAYOUT
+   ======================================================== */
+.main-content-area { 
+    max-width: 1200px; 
+    margin: 60px auto; 
+    padding: 0 20px; 
+} 
+
+.product-selector-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+} 
+
+.product-tile { 
+    position: relative; 
+    background: #ffffff; 
+    border-radius: 6px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+    cursor: pointer; 
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid #f1f5f9; 
+} 
+
+.tile-image-frame { 
+    position: relative; 
+    width: 100%; 
+    padding-top: 110%; 
+    overflow: hidden; 
+    background-color: #eaeaea; 
+} 
+
+.tile-image-frame img { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    will-change: transform; 
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+} 
+
+.product-tile:hover .tile-image-frame img { 
+    transform: scale(1.04); 
+} 
+
+/* Hover Specs Mask overlay configuration layer */
+.tile-stats-overlay { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient( to bottom, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.85) 60%, rgba(15, 23, 42, 0.98) 100% ); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    padding: 30px 25px; 
+    opacity: 0; 
+    will-change: opacity, transform; 
+    transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    transform: translateY(10px); 
+    z-index: 2; 
+} 
+
+.product-tile:hover .tile-stats-overlay { 
+    opacity: 1; 
+    transform: translateY(0); 
+} 
+
+.overlay-heading { 
+    color: #ffffff; 
+    font-size: 13px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    margin-bottom: 15px; 
+    color: var(--accent-blue); 
+} 
+
+.stats-data-group { 
+    list-style: none; 
+} 
+
+.stats-data-group li { 
+    color: #ffffff; 
+    font-size: 13px; 
+    margin-bottom: 8px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-bottom: 6px; 
+} 
+
+.stats-data-group li:last-child { 
+    border-bottom: none; 
+    margin-bottom: 0; 
+    padding-bottom: 0; 
+} 
+
+.stats-data-group span { 
+    color: #94a3b8; 
+    font-weight: 300; 
+}
+
+/* ========================================================
+   5. EXPERT CORNER LAYOUT & CARDS
+   ======================================================== */
+.expert-section {
+    padding: 70px 8%;
+    background: #f8f9fa;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 42px;
+    color: #222222;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.section-title p {
+    color: #666666;
+    font-size: 18px;
+}
+
+.expert-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.expert-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.expert-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.expert-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.expert-card-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.expert-card-content h3 {
+    font-size: 24px;
+    color: var(--gold-brand); /* Synced to your luxury brand gold theme */
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.expert-card-content p {
+    color: var(--text-gray);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* ===== Tile Calculator & Maintenance Tools ===== */
+.maintenance-tips-box {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 40px;
+}
+
+.maintenance-tips-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.maintenance-tips-box ul li {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 18px;
+    font-size: 17px;
+    color: #444444;
+}
+
+.maintenance-tips-box ul li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--gold-brand); /* Synced checkmarks to brand gold */
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* ========================================================
+   6. RESPONSIVE MEDIA QUERIES
+   ======================================================== */
+@media (max-width: 768px) {
+    .product-selector-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .expert-section {
+        padding: 50px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .section-title p {
+        font-size: 16px;
+    }
+
+    .expert-card-content h3 {
+        font-size: 22px;
+    }
+
+    .maintenance-tips-box {
+        padding: 25px;
+    }
+}
